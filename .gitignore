@@ -1,0 +1,13 @@
+node_modules/
+dist/
+.env
+.env.local
+*.log
+apps/api/prisma/*.db
+
+.pgdata/
+.dev-otp/
+
+.election-key.txt
+
+checkpoints.log

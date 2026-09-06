@@ -1,0 +1,27 @@
+{
+  "name": "kma-election",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "db": "npm run db:local --workspace=apps/api",
+    "dev": "concurrently -k -n api,voter,admin -c blue,green,magenta \"npm:start:api\" \"npm:start:voter\" \"npm:start:admin\"",
+    "dev:admin": "concurrently -k -n api,admin -c blue,magenta \"npm:start:api\" \"npm:start:admin\"",
+    "dev:voter": "concurrently -k -n api,voter -c blue,green \"npm:start:api\" \"npm:start:voter\"",
+    "start:api": "npm run dev --workspace=apps/api",
+    "start:voter": "npm run dev --workspace=apps/web",
+    "start:admin": "npm run dev --workspace=apps/admin",
+    "seed": "npm run seed --workspace=apps/api",
+    "test:e2e": "npm run e2e:env --workspace=apps/api",
+    "test:ui": "npm run build --workspace=apps/api && npm run seed && playwright test --config e2e/playwright.config.ts vote.spec.ts",
+    "test:ui:identity": "npm run build --workspace=apps/api && npm run seed && playwright test --config e2e/playwright.config.ts identity.spec.ts",
+    "check": "npm run check:env --workspace=apps/api",
+    "build": "npm run build --workspace=apps/api && npm run build --workspace=apps/web && npm run build --workspace=apps/admin"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "concurrently": "^9.1.2"
+  }
+}
